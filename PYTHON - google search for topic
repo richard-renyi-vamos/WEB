@@ -1,0 +1,19 @@
+from googlesearch import search
+
+# Define the topic to search for
+topic = "Python programming"
+
+# Set the number of search results to display
+num_of_results = 10
+
+# Use the googlesearch library to perform the search and store the results in a list
+results = []
+for result in search(topic, stop=num_of_results):
+    results.append(result)
+
+# Display the search results
+print(f"Top {num_of_results} results for '{topic}':")
+for i, result in enumerate(results):
+    print(f"{i+1}. {result}")
+
+# CREATED WITH THE HELP OF OPEN-AI CHAT GPT: https://chat.openai.com/chat
