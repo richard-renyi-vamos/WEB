@@ -1,0 +1,32 @@
+import tkinter as tk
+import webbrowser
+
+def webmd_search(query):
+    if query:
+        # Construct the WebMD search URL
+        search_url = f"https://www.webmd.com/search/search_results/default.aspx?query={query}"
+
+        # Open the search URL in the default web browser
+        webbrowser.open(search_url)
+
+def search_button_clicked():
+    query = search_entry.get()
+    webmd_search(query)
+
+# Create the main window
+window = tk.Tk()
+window.title("WebMD Search")
+
+# Create and configure the search entry field
+search_label = tk.Label(window, text="Enter your query:")
+search_label.pack()
+search_entry = tk.Entry(window, width=40)
+search_entry.pack()
+search_button = tk.Button(window, text="Search", command=search_button_clicked)
+search_button.pack()
+
+# Start the GUI event loop
+window.mainloop()
+
+
+# CREATED WITH THE HELP OF OPEN-AI CHAT GPT: https://chat.openai.com/chat
