@@ -1,0 +1,51 @@
+import tkinter as tk
+import webbrowser
+
+# Define a list of button labels
+button_labels = [
+    "TEST",
+    "Wikipedia",
+    "Button C",
+    "Button D",
+    "Button E",
+    "Button F",
+    "Button G",
+    "Button H",
+    "Button I",
+    "Button J"
+]
+
+# Define a list of URL links
+url_links = [
+    "www.google.com",
+    "www.wikipedia.com",
+    "https://www.example.com/link3",
+    "https://www.example.com/link4",
+    "https://www.example.com/link5",
+    "https://www.example.com/link6",
+    "https://www.example.com/link7",
+    "https://www.example.com/link8",
+    "https://www.example.com/link9",
+    "https://www.example.com/link10"
+]
+
+# Function to open a URL link when a button is clicked
+def open_url(index):
+    webbrowser.open(url_links[index])
+
+# Create the main application window
+root = tk.Tk()
+root.title("URL Links")
+
+# Create and display 10 buttons with separate names
+buttons = []
+for i in range(10):
+    button_label = button_labels[i]
+    button = tk.Button(root, text=button_label, command=lambda i=i: open_url(i))
+    button.pack()
+    buttons.append(button)
+
+# Start the GUI event loop
+root.mainloop()
+
+# CREATED WITH THE HELP OF OPEN-AI CHAT GPT: https://chat.openai.com/chat
