@@ -1,0 +1,32 @@
+import pandas as pd
+from pytrends.request import TrendReq
+import matplotlib.pyplot as plt
+
+# Create pytrends object
+pytrends = TrendReq(hl='en-US', tz=360)
+
+# Get the top trending topics
+pytrends.build_payload(kw_list=[''], timeframe='today 1-d')
+trending_data = pytrends.trending_searches(pn='united_states')  # Change 'united_states' to your desired location
+
+# Convert the data into a DataFrame
+df = pd.DataFrame(trending_data, columns=['Trending Topics'])
+
+# Display the top 100 trending topics
+top_100_trending = df.head(100)
+print(top_100_trending)
+
+# Save the top 100 trending topics to a CSV file
+top_100_trending.to_csv('top_trending_topics.csv', index=False)
+
+# Plot the top 10 trending topics
+plt.figure(figsize=(10, 6))
+plt.bar(top_100_trending['Trending Topics'][:10], range(10))
+plt.xticks(rotation=90)
+plt.xlabel('Trending Topics')
+plt.ylabel('Trending Score')
+plt.title('Top 10 Trending Topics')
+plt.tight_layout()
+plt.show()
+
+# CREATED WITH THE HELP OF OPEN-AI CHAT GPT: https://chat.openai.com/chat
