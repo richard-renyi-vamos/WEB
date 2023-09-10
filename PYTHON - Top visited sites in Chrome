@@ -1,0 +1,41 @@
+import sqlite3
+
+# Replace 'your/Chrome/History/File/Path' with the actual path to your Chrome History file
+history_file_path = 'C:/Users/YourUsername/AppData/Local/Google/Chrome/User Data/Default/History'
+
+# Connect to the Chrome History SQLite database
+connection = sqlite3.connect(history_file_path)
+cursor = connection.cursor()
+
+# Query to retrieve the most visited sites
+query = """
+    SELECT
+        urls.url,
+        COUNT(*) as visit_count
+    FROM
+        urls
+    JOIN
+        visits
+    ON
+        urls.id = visits.url
+    GROUP BY
+        urls.url
+    ORDER BY
+        visit_count DESC
+    LIMIT
+        100
+"""
+
+# Execute the query and fetch the results
+cursor.execute(query)
+results = cursor.fetchall()
+
+# Close the database connection
+connection.close()
+
+# Display the top 100 most visited sites
+for index, (url, visit_count) in enumerate(results, start=1):
+    print(f"{index}. {url} - {visit_count} visits")
+
+
+ # CREATED WITH THE HELP OF OPEN-AI CHAT GPT: https://chat.openai.com/chat
