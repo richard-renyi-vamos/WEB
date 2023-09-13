@@ -1,0 +1,62 @@
+import requests
+from bs4 import BeautifulSoup
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+import nltk
+
+# Download the 'stopwords' resource
+nltk.download('stopwords')
+
+# Step 1: Scrape text from a website
+def scrape_text(url):
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    text = ' '.join([p.get_text() for p in soup.find_all('p')])  # Extract text from <p> tags
+    return text
+
+# Step 2: Process the text
+def process_text(text):
+    # Tokenize the text
+    tokens = word_tokenize(text.lower())
+
+    # Remove stopwords and non-alphabetic words
+    stop_words = set(stopwords.words('english'))
+    filtered_tokens = [word for word in tokens if word.isalpha() and word not in stop_words]
+
+    # Join the tokens back into a single string
+    processed_text = ' '.join(filtered_tokens)
+
+    return processed_text
+
+# Step 3: Generate a word cloud
+def generate_word_cloud(text):
+    wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
+    return wordcloud
+
+# Step 4: Apply colors and display the word cloud
+def display_word_cloud(wordcloud):
+    plt.figure(figsize=(10, 5))
+    plt.imshow(wordcloud, interpolation='bilinear')
+    plt.axis('off')
+    plt.show()
+
+if __name__ == "__main__":
+    # Specify the URL of the website you want to scrape
+    website_url = "https://example.com"
+    
+    # Step 1: Scrape text from the website
+    website_text = scrape_text(website_url)
+    
+    # Step 2: Process the text
+    processed_text = process_text(website_text)
+    
+    # Step 3: Generate a word cloud
+    wc = generate_word_cloud(processed_text)
+    
+    # Step 4: Apply colors and display the word cloud
+    display_word_cloud(wc)
+
+
+# CREATED WITH THE HELP OF OPEN-AI CHAT GPT: https://chat.openai.com/chat
